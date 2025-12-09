@@ -1,3 +1,5 @@
 from django.contrib import admin
+from flats.models import Flat
 
-# Register your models here.
+
+admin.site.register(Flat)
