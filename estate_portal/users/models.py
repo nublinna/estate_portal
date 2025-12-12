@@ -5,7 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 class Role(models.Model):
     name = models.CharField(max_length=50)
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 class CustomUserManager(UserManager):
@@ -38,3 +38,9 @@ class User(AbstractUser):
     role = models.ForeignKey(Role, null=False, blank=False, on_delete=models.PROTECT)
     objects = CustomUserManager()
     REQUIRED_FIELDS = ['role', 'email']
+
+    def is_owner(self):
+        return self.role.name == 'owner'
+
+    def is_seeker(self):
+        return self.role.name == 'seeker'
